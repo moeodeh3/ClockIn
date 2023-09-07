@@ -1,0 +1,8 @@
+.adminpage--div{
+    position: absolute;
+    top: 20%;
+    width: 320px;
+    height: 170px;
+    overflow: scroll;
+    overflow-x: hidden;
+}

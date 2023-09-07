@@ -1,0 +1,21 @@
+.user--div{
+    height: 30px;
+    border-bottom: 2px solid grey;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    padding-bottom: 5px;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.user--name{
+    margin-left: 8px;
+}
+
+.user--delete{
+    width: 20px;
+    margin-right: 14px;
+}

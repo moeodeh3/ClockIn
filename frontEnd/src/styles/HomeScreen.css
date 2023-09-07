@@ -1,0 +1,53 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.main{
+    height: 240;
+    width: 320;
+    display: flex;
+    position: relative;
+}
+
+.background--div{
+    height: 100vh;
+    width: 100vw;
+}
+
+.background{
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+.time {
+    color: white;
+    font-size: 55px;
+    position: absolute;
+    top: 40%; /* Position the text vertically in the middle */
+    left: 47%; /* Position the text horizontally in the middle */
+    transform: translate(-50%, -50%); /* Center the text precisely */
+  }
+.meridiem{
+    color: white;
+    position: absolute;
+    font-size: 20px;
+    top: 46%; /* Position the text vertically in the middle */
+    left: 68%; /* Position the text horizontally in the middle */
+}
+button{
+    position: absolute;
+    top: 5%; /* Position the text vertically in the middle */
+    left: 83%; /* Position the text horizontally in the middle */
+    background-color: rgb(22, 4, 48);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;   
+}
