@@ -1,0 +1,71 @@
+.form{
+    position: absolute;
+    left: 20%;
+    
+}
+
+.fingerprintGIF{
+    width: 150px;
+}
+
+.inputBox--label{
+    font-size: 12px;
+    margin: 0 0 0 0;
+    margin-top: 20px; 
+    width: 70px;
+}
+
+.form--div{
+    position: absolute;
+    top: 85%;
+    display: flex;
+}
+
+.description{
+    margin-left: 3px;
+    margin-right: 80px;
+    font-size: 10px;
+}
+
+.text-box{
+    width: 130px;
+}
+
+.submit--button{
+    position: absolute;
+    top: 95%; 
+    left: 75%; 
+    background-color: rgb(22, 4, 48);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px; 
+    height: 20px;  
+}
+
+.error-box-last{
+    position: absolute;
+    top: 43%; 
+    left: 20%; 
+    font-size: 10px;
+    color: red;
+}
+
+.error-box-first{
+    position: absolute;
+    top: 20%; 
+    left: 20%; 
+    font-size: 10px;
+    color: red;
+}
+
+.error-box-finger{
+    position: absolute;
+    top: 87%; 
+    left: 20%; 
+    font-size: 10px;
+    color: red;
+}

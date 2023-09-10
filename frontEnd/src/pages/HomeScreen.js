@@ -74,7 +74,7 @@ export default function HomeScreen() {
         {formatHour(time.hour)}:{formatMinute(time.minute)}
       </h1>
       <h4 className="meridiem">{time.meridiem}</h4>
-      <button onClick={sendToLogin}>Admin</button>
+      <button className='button-exit' onClick={sendToLogin}>Admin</button>
     </div>
   );
 }

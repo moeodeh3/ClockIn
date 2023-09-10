@@ -35,7 +35,7 @@ export default function AdminLogin({setIsLoggedIn}){
 
     return (
         <div>
-            <button onClick={sendToHome}>Back</button>
+            <button className='button-exit' onClick={sendToHome}>Back</button>
             <h2 className='password-title'>Password</h2>
             <div className='password-div'>
                 <input 

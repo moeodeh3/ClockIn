@@ -4,6 +4,7 @@ import './styles/App.css';
 import HomeScreen from './pages/HomeScreen';
 import AdminLogin from './pages/AdminLogin';
 import AdminPage from './pages/AdminPage';
+import AddUser from './pages/AddUser';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<HomeScreen />} />
           <Route path='/login' element={<AdminLogin setIsLoggedIn={setIsLoggedIn} />} />
           <Route path='/admin' element={<AdminPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path='/adduser' element={<AddUser isLoggedIn={isLoggedIn} />} />
 
         </Routes>
       </BrowserRouter>
