@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, Text, delete
+from sqlalchemy import create_engine, Column, Integer, Text, Time
 from sqlalchemy.orm import sessionmaker
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -30,13 +30,25 @@ DATABASE_URL = 'postgresql+psycopg2://postgres:admin@localhost/userData'
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Database schema
+
+# Database schema for users
 class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
     name = Column(Text)
-    fingerURL = Column(Text)
+    fingerId = Column(Text)
+
+
+# Database schema for clock in and out times
+class ClockTime(Base):
+    __tablename__ = 'clockTime'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(Text)
+    clockIn = Column(Text)
+    clockOut = Column(Time)
+
 
 # Dependency to get a database session
 def get_db():
@@ -57,12 +69,12 @@ def deleteUser(name):
         return "ERROR"
     
 
-def addUser(firstName,lastName, url):
+def addUser(firstName,lastName, fingerId):
     db = SessionLocal()
     newUser = User()
 
     newUser.name = firstName.capitalize().replace(" ", "") + " " +  lastName.capitalize().replace(" ", "")
-    newUser.fingerURL = url
+    newUser.fingerId = fingerId
 
     oldUser = db.query(User).filter(User.name == newUser.name).first()
 
@@ -71,4 +83,39 @@ def addUser(firstName,lastName, url):
         db.commit()
     else:
         return "ERROR"
+    
+
+def getRowCount():
+    db = SessionLocal()
+    rows = db.query(User).count()
+    return rows
+
+
+
+def clockInOrOut(user, timestamp):
+    db = SessionLocal()
+    
+
+    clockOut = db.query(User).filter(
+        ClockTime.name == user,
+        ClockTime.clockOut.is_(None)
+    ).first()
+ 
+
+    if clockOut:
+        clockOut.clockOut = timestamp
+        db.add(clockOut)
+        
+    else:
+        clockIn = ClockTime()
+        clockIn.name = user
+        clockIn.clockIn = timestamp
+        db.add(clockIn)
+
+    db.commit()
+
+
+clockInOrOut("Mohammed Odeh", "12-06-16")
+
+
     

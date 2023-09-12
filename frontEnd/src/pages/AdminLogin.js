@@ -31,6 +31,10 @@ export default function AdminLogin({setIsLoggedIn}){
           setIsLoggedIn(prevIsLoggedIn => !prevIsLoggedIn)
           navigate("/admin");
         }
+        else if (e.key === 'Enter'){
+          setPassword(0)
+          inputRef.current.value = null
+        }
       };
 
     return (

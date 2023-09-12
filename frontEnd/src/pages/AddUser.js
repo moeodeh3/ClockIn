@@ -47,7 +47,7 @@ export default function AddUser({isLoggedIn}){
         }
         else {
 
-          fetch(`http://127.0.0.1:8000/add?firstName=${firstName}&lastName=${lastName}&url=${url}`, {
+          fetch(`http://127.0.0.1:8000/add?firstName=${firstName}&lastName=${lastName}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',

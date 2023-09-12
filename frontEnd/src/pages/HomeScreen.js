@@ -1,12 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from "react-router-dom";
 import '../styles/HomeScreen.css'
-import background from '../assets/background/background.png' 
+import background from '../assets/background/background.png'
 
 export default function HomeScreen() {
 
 
   const navigate = useNavigate();
+  const [welcomeMessage, setWelcomeMessage] = useState("")
+  const socketRef = useRef(null)
+  const websocketUrl = "ws://localhost:8000/ws" // Update with your backend WebSocket URL (In this case its localhost)
+
+  useEffect(() => {
+    socketRef.current = new WebSocket(websocketUrl)
+
+
+    socketRef.current.onmessage = (event) => {
+      setWelcomeMessage("Welcome " + event.data)
+    }
+
+  }, [])
+
 
 
 
@@ -33,7 +47,10 @@ export default function HomeScreen() {
 
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+
+    
+      // First interval (updates time every second)
+      const timeIntervalId = setInterval(() => {
       // Get the current time
       const currentTime = new Date();
       const hour = currentTime.getHours();
@@ -46,10 +63,21 @@ export default function HomeScreen() {
         minute,
         meridiem,
       });
+
+      
+
     }, 1000); // Update every second
 
-    // Clean up the interval
-    return () => clearInterval(intervalId);
+    const welcomeMessageInterval = setInterval(() => {
+      setWelcomeMessage("");
+    }, 5000); 
+
+    // Clean up both intervals
+    return () => {
+      clearInterval(timeIntervalId);
+      clearInterval(welcomeMessageInterval);
+    };
+
   }, []);
 
 
@@ -74,6 +102,7 @@ export default function HomeScreen() {
         {formatHour(time.hour)}:{formatMinute(time.minute)}
       </h1>
       <h4 className="meridiem">{time.meridiem}</h4>
+      <h5 className='welcome-message'>{welcomeMessage}</h5>
       <button className='button-exit' onClick={sendToLogin}>Admin</button>
     </div>
   );

@@ -1,5 +1,6 @@
-from fastapi import FastAPI, Query, Depends
-from classes import User, SessionLocal, get_db, app, deleteUser, addUser
+from fastapi import FastAPI, Query, Depends, WebSocket, WebSocketDisconnect
+from classes import User, SessionLocal, get_db, app, deleteUser, addUser, getRowCount, clockInOrOut
+import asyncio
 
 
 
@@ -24,6 +25,20 @@ async def delete(name: str):
 
 
 @app.post("/add")
-async def add(firstName: str, lastName: str,  url: str):
-    addUser(firstName, lastName,  url)
+async def add(firstName: str, lastName: str):
+    addUser(firstName, lastName,  getRowCount() + 1)
     return "Sucess"
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+
+    try:
+        while(True):
+            await websocket.send_text("Mohammed")
+            clockInOrOut("Mohammed Odeh", "12-06-15")
+            await asyncio.sleep(30)
+
+    except WebSocketDisconnect:
+        pass

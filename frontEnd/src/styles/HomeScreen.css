@@ -38,6 +38,17 @@ html, body {
     top: 46%; /* Position the text vertically in the middle */
     left: 68%; /* Position the text horizontally in the middle */
 }
+
+.welcome-message{
+    font-style: italic;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 65%;
+    left: 25%;
+}
+
+
 .button-exit{
     position: absolute;
     top: 5%; /* Position the text vertically in the middle */
