@@ -8,7 +8,7 @@ export default function AdminLogin({setIsLoggedIn}){
     const [password, setPassword]= React.useState(0)
     const inputRef = React.useRef(null);
     const navigate = useNavigate();
-    const secretCode = 4554
+    const secretCode = 1234
 
     React.useEffect(() => {
         if (inputRef.current) {

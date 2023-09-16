@@ -36,9 +36,16 @@ async def websocket_endpoint(websocket: WebSocket):
 
     try:
         while(True):
-            await websocket.send_text("Mohammed")
-            clockInOrOut("Mohammed Odeh", "12-06-15")
-            await asyncio.sleep(30)
+            finger = get_fingerprint()
+            if (finger):
+                fingerId, fingerConfidence = finger
+                if (fingerConfidence > 80):
+                    #clockInorOut
+                    await websocket.send_text(fingerId)
+
+                else:
+                    await websocket.send_text("Please try again")
+
 
     except WebSocketDisconnect:
         pass

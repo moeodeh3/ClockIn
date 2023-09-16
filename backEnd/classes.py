@@ -4,6 +4,15 @@ from sqlalchemy import create_engine, Column, Integer, Text, Time
 from sqlalchemy.orm import sessionmaker
 from fastapi.middleware.cors import CORSMiddleware
 
+#For finger print
+import time
+import serial
+import adafruit_fingerprint
+
+# uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
+# finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+
+
 Base = declarative_base()
 
 app = FastAPI()
@@ -24,7 +33,7 @@ app.add_middleware(
 
 
 # Database connection setup
-DATABASE_URL = 'postgresql+psycopg2://postgres:admin@localhost/userData'
+DATABASE_URL = 'postgresql+psycopg2://postgres:password@publicIP/userData'
 
 
 engine = create_engine(DATABASE_URL)
@@ -94,17 +103,17 @@ def getRowCount():
 
 def clockInOrOut(user, timestamp):
     db = SessionLocal()
-    
 
-    clockOut = db.query(User).filter(
+    clockOut = db.query(ClockTime).filter(
         ClockTime.name == user,
         ClockTime.clockOut.is_(None)
     ).first()
- 
 
+    
     if clockOut:
         clockOut.clockOut = timestamp
         db.add(clockOut)
+        
         
     else:
         clockIn = ClockTime()
@@ -115,7 +124,21 @@ def clockInOrOut(user, timestamp):
     db.commit()
 
 
-clockInOrOut("Mohammed Odeh", "12-06-16")
+# def get_fingerprint():
+#     """Get a finger print image, template it, and see if it matches!"""
+#     print("Waiting for image...")
+#     while finger.get_image() != adafruit_fingerprint.OK:
+#         pass
+#     print("Templating...")
+#     if finger.image_2_tz(1) != adafruit_fingerprint.OK:
+#         return False
+#     print("Searching...")
+#     if finger.finger_search() != adafruit_fingerprint.OK:
+#         return None
+    
+#     fingerList = [finger.finger_id, finger.confidence]
+#     return fingerList
+
 
 
     
