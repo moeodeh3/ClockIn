@@ -6,7 +6,7 @@ import fingerPrint from '../assets/fingerprint/fingerPrint.gif'
 export default function AddUser({isLoggedIn}){
 
     const navigate = useNavigate();
-    const [isChecked, setIsChecked] = useState(true)
+    const [isChecked, setIsChecked] = useState(false)
     const [firstError, setFirstError ] = useState("")
     const [lastError, setLastError ] = useState("")
     const [fingerError, setFingerError ] = useState("")
@@ -18,6 +18,19 @@ export default function AddUser({isLoggedIn}){
       if (!isLoggedIn) {
         navigate('/login');
       } 
+      else{
+
+        fetch(`http://127.0.0.1:8000/addfinger`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data){
+            setIsChecked(true)
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      }
     }, [isLoggedIn]);
 
     function sendToAdmin() {

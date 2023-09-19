@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Query, Depends, WebSocket, WebSocketDisconnect
-from classes import User, SessionLocal, get_db, app, deleteUser, addUser, getRowCount, clockInOrOut
+from classes import User, SessionLocal, get_db, app, deleteUser, addUser, clockInOrOut, getUserById, getLowestAvailableId, enroll_finger, get_fingerprint
 import asyncio
+
 
 
 
@@ -24,9 +25,18 @@ async def delete(name: str):
     return "Sucess"
 
 
+@app.post("/addfinger")
+async def addfinger():
+    while True:
+        result = enroll_finger(getLowestAvailableId())
+        if result:
+            return True
+
+
+
 @app.post("/add")
 async def add(firstName: str, lastName: str):
-    addUser(firstName, lastName,  getRowCount() + 1)
+    addUser(firstName, lastName)
     return "Sucess"
 
 
@@ -40,12 +50,12 @@ async def websocket_endpoint(websocket: WebSocket):
             if (finger):
                 fingerId, fingerConfidence = finger
                 if (fingerConfidence > 80):
-                    #clockInorOut
-                    await websocket.send_text(fingerId)
-
+                    user = getUserById(fingerId)
+                    clockInOrOut(user)
+                    await websocket.send_text(user)
                 else:
                     await websocket.send_text("Please try again")
-
+            await websocket.send_text("Please try again")
 
     except WebSocketDisconnect:
         pass

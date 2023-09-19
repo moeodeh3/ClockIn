@@ -16,7 +16,7 @@ export default function HomeScreen() {
 
 
     socketRef.current.onmessage = (event) => {
-      setWelcomeMessage("Welcome " + event.data)
+      setWelcomeMessage(event.data)
     }
 
   }, [])
